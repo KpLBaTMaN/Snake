@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+#canvas {
+  border: 10px solid brown;
+  background-color: black;
+}
+
+.wrapper {
+  position: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
