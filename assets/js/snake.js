@@ -12,7 +12,7 @@ class Snake{
 
     draw(){
         ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, canvas.width / SCALE , canvas.height / SCALE );
+        ctx.fillRect(this.x, this.y, ROW , COLUM );
     }
 
     update(){
@@ -20,11 +20,24 @@ class Snake{
         this.x += this.xSpeed;
         this.y += this.ySpeed;
 
-
-        // //collision wall
-        // if(this.x > canvas.width ) this.x = ROW;   //right side
-        // if(this.x < 0 ) this.velocity_x *= -1;              //left side
-        // if(this.y < 0) this.velocity_y *= -1;               //top side
-        // if(this.y > canvas.height) this.velocity_y *= -1;   //bottom side
     }
 }
+
+
+class SnakeBody extends Snake{
+
+    constructor(){
+        super();
+    }
+
+    draw(){
+        this.draw();
+
+    }
+
+    update(){
+        this.update()
+    }
+
+
+} 

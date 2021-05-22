@@ -23,12 +23,8 @@ const COLUM = canvas.height / SCALE;
 var runTime;
 
 
-var playerSnake;
-
-
-
-/*snake*/
-
+var playerSnake = [];
+var food = new Food(ROW, COLUM, FOOD_COLOUR);
 
 
 
@@ -37,25 +33,37 @@ var playerSnake;
 
 
 
+function background(){
+    ctx.fillStyle = CANAVS_BACKGROUND;
+    ctx.fillRect(0,0, canvas.width, canvas.height);
+}
 
+function snake_animate(){
+    for(i=0; i < playerSnake.length; i++){
+        playerSnake[i].draw();
+        playerSnake[i].update();
+    }
+}
+
+function food_animate(){
+    food.draw();
+    food.update();
+}
 
 function runTime(){
     console.log("Running");
-    ctx.fillStyle = CANAVS_BACKGROUND;
-    ctx.fillRect(0,0, canvas.width, canvas.height);
-
-
-    playerSnake.draw();
-    playerSnake.update();
-
-
-    
+    background();
+    snake_animate();
+    food_animate();
 }
+
+
+
 
 function setup(){
     console.log("Setting up the game");
-    playerSnake = new Snake(ROW, COLUM, SNAKE_COLOUR);
-
+    playerSnake.push(new Snake(ROW, COLUM, SNAKE_COLOUR));
+    console.log(playerSnake);
 
 }
 
@@ -65,7 +73,7 @@ function setup(){
 
 
 
-/*controls*/
+/*controls snake*/
 window.addEventListener('keydown', event => {
 
     switch(event.keyCode){
@@ -97,6 +105,6 @@ window.addEventListener('keydown', event => {
 window.addEventListener('load', (event) => {
     console.log("load");
     setup()
-    setInterval(runTime, 500); //do not call the method here. Had an error for 10 mins trying to work out this problem.
+    setInterval(runTime, 250); //do not call the method here - eg runTime(). Do runTime. Had an error for 10 mins trying to work out this problem.
 });
 

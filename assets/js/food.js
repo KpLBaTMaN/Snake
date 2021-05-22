@@ -1,22 +1,22 @@
-class food{
+class Food{
 
-    constructor(){
-        this.x = 0;
-        this.y = 0;
-
-        this.speed = 5;
-
-
+    constructor(row, colum, color){
+        this.x = row* (Math.random() * SCALE);
+        this.y = colum * (Math.random() * SCALE);
+        this.color = color;
     }
 
     draw(){
-
-        ctx.fileStyle ="#FFFF00";
-        ctx.fileRect(this.x, this.y, scale, scale);
-
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, ROW, COLUM );
     }
 
     update(){
+
+        
+
+        
+
 
 
     }
