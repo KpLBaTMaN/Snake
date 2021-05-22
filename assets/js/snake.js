@@ -1,21 +1,30 @@
 
 class Snake{
 
-    constructor(){
-        this.x = 0;
-        this.y = 0;
-        this.speed = 3;
-        console.log("snake object created");
+    constructor(row, colum, color){
+        this.x = row * SCALE/2;
+        this.y = colum * SCALE/2;
+        this.xSpeed = row;
+        this.ySpeed = 0;
+        this.color = color;
     }
 
-    
+
     draw(){
-        ctx.fillStyle = "#FF00FF";
-        ctx.fillRect(this.x, this.y, scale, scale);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, canvas.width / SCALE , canvas.height / SCALE );
     }
 
     update(){
-        this.x += this.speed;
-        this.y += this.speed;
+        console.log("updating");
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+
+
+        // //collision wall
+        // if(this.x > canvas.width ) this.x = ROW;   //right side
+        // if(this.x < 0 ) this.velocity_x *= -1;              //left side
+        // if(this.y < 0) this.velocity_y *= -1;               //top side
+        // if(this.y > canvas.height) this.velocity_y *= -1;   //bottom side
     }
 }
