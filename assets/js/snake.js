@@ -1,10 +1,10 @@
 
 class Snake{
 
-    constructor(row, colum, color){
-        this.x = row * SCALE/2;
-        this.y = colum * SCALE/2;
-        this.xSpeed = row;
+    constructor(x, y, color){
+        this.x = x;
+        this.y = y;
+        this.xSpeed = ROW;
         this.ySpeed = 0;
         this.color = color;
     }
@@ -16,27 +16,49 @@ class Snake{
     }
 
     update(){
-        console.log("updating");
+        // console.log("updating");
         this.x += this.xSpeed;
         this.y += this.ySpeed;
+        console.log("X: " + this.x + "  Y: " + this.y);
+    }
 
+    direction(x_value, y_value){
+        this.xSpeed = x_value * ROW;
+        this.ySpeed = y_value * COLUM;
+    }
+
+    eat(cFood){
+        //Pythahorean Theorem
+        let xDistance = cFood.x - player.x;
+        let yDistance = cFood.y - player.y;
+        var distance = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2))
+
+        if(distance < 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
 
 
-class SnakeBody extends Snake{
+class SnakeBody{
 
-    constructor(){
-        super();
+    constructor(xLocation, yLocation, color){
+        this.x = xLocation;
+        this.y = yLocation;
+        this.color = color;
     }
 
     draw(){
-        this.draw();
-
+        ctx.fillStyle = this.color;
+        ctx.fillRect(this.x, this.y, ROW , COLUM );
     }
 
     update(){
-        this.update()
+        
+        
     }
 
 

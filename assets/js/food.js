@@ -1,9 +1,15 @@
 class Food{
 
-    constructor(row, colum, color){
-        this.x = row* (Math.random() * SCALE);
-        this.y = colum * (Math.random() * SCALE);
+    constructor(rowSpawn, columSpawn, color){
+
+        this.x = 0;
+        this.y = 0;
+
         this.color = color;
+        this.snakeEaten = false;
+
+        console.log(this.x);
+        console.log(this.y);
     }
 
     draw(){
@@ -12,16 +18,16 @@ class Food{
     }
 
     update(){
-
         
+    }
 
-        
-
-
-
+    setLocation(x, y){
+        this.x = x;
+        this.y = y;
     }
 
 
+    
 
 
 
