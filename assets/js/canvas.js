@@ -71,15 +71,24 @@ window.addEventListener('keydown', event => {
     switch(event.keyCode){
         case 37: 
             console.log("Button left");
+            playerSnake.xSpeed = -ROW;
+            playerSnake.ySpeed = 0;
             break;
         case 38: 
             console.log("Button up");
+            playerSnake.xSpeed = 0;
+            playerSnake.ySpeed = -COLUM;
+        
             break;
         case 39: 
             console.log("Button right");
+            playerSnake.xSpeed = ROW;
+            playerSnake.ySpeed = 0;
             break;
         case 40: 
             console.log("Button down");
+            playerSnake.xSpeed = 0;
+            playerSnake.ySpeed = COLUM;
             break;
     }
 });
