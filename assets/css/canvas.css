@@ -10,14 +10,31 @@ body {
 }
 
 #canvas {
-  border: 5px solid rgb(54, 42, 165);
+  border: 10px solid rgb(255, 0, 34);
   background-color: black;
 }
 
 .wrapper {
-  position: flex;
+  margin: auto;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.score_text {
+}
+
+.text_box {
+  border: black;
+  position: absolute;
+}
+
+h3 {
+  margin-bottom: 10px;
+}
+
+h1 {
+  margin-bottom: 10px;
 }

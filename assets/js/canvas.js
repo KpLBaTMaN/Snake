@@ -35,13 +35,12 @@ var snake_size = 0;
 
 
 //Interactive Elements
-var playerSnake;
 var playerSnake = [];
 var total_size = 0;
 var food;
+var score = 0;
 
-//Score element
-var scoreElement;
+
 
 
 function background(){
@@ -49,14 +48,26 @@ function background(){
     ctx.fillRect(0,0, canvas.width, canvas.height);
 }
 
+function update_score(){
+    ctx.font = "30px Arial";
+    ctx.strokeStyle = 'white';
+    ctx.strokeText("Score: " + score.toString(), ROW, COLUM);
+}
+
 function collision(){
     playerSnake[0].collision_wall();
-    
 
     for(i = 1; i < playerSnake.length; i++){
-        if(playerSnake[0].x ===playerSnake[i].x&&playerSnake[0].y ===playerSnake[i].y){
-            console.log("dead");
+        if(snake_eats_self(playerSnake)){
+            clearInterval(runTime);
+            window.alert("You lost. Your Score: " + score);
         }
+    }
+}
+
+function snake_eats_self(snake){
+    if(snake[0].x ===snake[i].x&&snake[0].y ===snake[i].y){
+        return true;
     }
 }
 
@@ -65,7 +76,6 @@ function snake_animate(){
         playerSnake[i].draw();
         playerSnake[i].update();
     }
-    
 }
 
 function food_animate(){
@@ -78,21 +88,12 @@ function runTime(){
     background();
     collision();
     moveBody();
-
-
     snake_animate();
     food_animate();
-
     checkSnakeFood();
-    displayText();
-
-    
+    update_score();
 }
 
-function displayText(){
-    ctx.strokeStyle = 'black';
-    ctx.strokeText("1", SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y);
-}
 
 function checkSnakeFood(){
     if(playerSnake[0].eat(food)){
@@ -102,8 +103,8 @@ function checkSnakeFood(){
 }
 
 function growSnake(){
-    console.log(snake_size);
     playerSnake.push(new SnakeBody(playerSnake[snake_size-1].x, playerSnake[snake_size-1].y, SNAKE_BOARDER_COLOUR));
+    score++;
 }
 
 
@@ -134,35 +135,12 @@ function createSnake(){
 function moveBody(){
     //move each body up on spot in the array
     //Couldn't quite get it
-    // console.log("Moving Body");
-
-
-
     //This took too long to figure out :D 
     //This loops "history" of the body to the next one
     for(i = playerSnake.length-1; i > 0; i--){
         playerSnake[i].x = playerSnake[i-1].x;
         playerSnake[i].y = playerSnake[i-1].y; 
     }
-
-
-
-    
-
-
-
-    
-    
-
-
-
-
-
-
-
-    
-
-    
 
     //playerSnake[playerSnake.length-1] = new SnakeBody(player.x, player.y, SNAKE_BOARDER_COLOUR);
 
