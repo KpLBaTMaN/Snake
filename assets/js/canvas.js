@@ -1,12 +1,12 @@
 //The CanvasRenderingContext2D interface, part of the Canvas API,
 
 /*GAME Variables*/
-const SNAKE_COLOUR = "#FF00FF";
+const SNAKE_COLOUR = "#101820";
 const FOOD_COLOUR = "#00FFFF";
-const SNAKE_BOARDER_COLOUR = "#FF0000";
+const SNAKE_BOARDER_COLOUR = "#F2AA4C";
 const CANAVS_BACKGROUND = "#000000";
 const CANVAS_SIZE = 1200;
-const GAME_DELAY = 250;
+const GAME_DELAY = 200;
 
 
 /*setup for canvas*/
@@ -103,7 +103,7 @@ function checkSnakeFood(){
 }
 
 function growSnake(){
-    playerSnake.push(new SnakeBody(playerSnake[snake_size-1].x, playerSnake[snake_size-1].y, SNAKE_BOARDER_COLOUR));
+    playerSnake.push(new SnakeBody(playerSnake[snake_size-1].x, playerSnake[snake_size-1].y, SNAKE_COLOUR, SNAKE_BOARDER_COLOUR));
     score++;
 }
 
@@ -120,11 +120,11 @@ function pickLocationFood(){
 
 function createSnake(){
 
-    playerSnake.push(new Snake(SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR));
+    playerSnake.push(new Snake(SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR, SNAKE_BOARDER_COLOUR));
     snake_size++;
 
     for(i = 1; i <= SNAKE_SPAWN_SIZE; i++){
-        playerSnake.push(new SnakeBody(SNAKE_SPAWN_POINT_X - (ROW*i), SNAKE_SPAWN_POINT_Y, SNAKE_BOARDER_COLOUR));
+        playerSnake.push(new SnakeBody(SNAKE_SPAWN_POINT_X - (ROW*i), SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR, SNAKE_BOARDER_COLOUR));
         snake_size++;
     }
 

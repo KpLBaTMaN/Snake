@@ -1,18 +1,21 @@
 
 class Snake{
 
-    constructor(x, y, color){
+    constructor(x, y, color, color_boarder){
         this.x = x;
         this.y = y;
         this.xSpeed = ROW;
         this.ySpeed = 0;
         this.color = color;
+        this.color_boarder = color_boarder;
     }
 
 
     draw(){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, ROW , COLUM );
+        ctx.strokeStyle = this.color_boarder;
+        ctx.strokeRect(this.x, this.y, ROW , COLUM);
     }
 
     update(){
@@ -61,14 +64,13 @@ var id = 1;
 class SnakeBody{
      
 
-    constructor(xLocation, yLocation, color){
+    constructor(xLocation, yLocation, color, color_boarder){
         this.x = xLocation;
         this.y = yLocation;
         this.color = color;
         this.bodyID = id;
+        this.color_boarder = color_boarder;
         id+=1;
-
-
     }
 
     draw(){
@@ -76,7 +78,9 @@ class SnakeBody{
         ctx.fillRect(this.x, this.y, ROW , COLUM );
         ctx.strokeStyle = 'white';
         ctx.strokeText(this.bodyID.toString(), this.x+(ROW_HALF), this.y+(COLUM_HALF), 30);
-    
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = this.color_boarder;
+        ctx.strokeRect(this.x, this.y, ROW , COLUM);
     }
 
     update(){

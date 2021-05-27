@@ -10,7 +10,7 @@ body {
 }
 
 #canvas {
-  border: 10px solid rgb(255, 0, 34);
+  border: 10px solid rgb(89, 0, 255);
   background-color: black;
 }
 
@@ -29,6 +29,10 @@ body {
 .text_box {
   border: black;
   position: absolute;
+  font-size: 200%;
+  margin-left: 30px;
+  position: relative;
+  text-align: center;
 }
 
 h3 {
