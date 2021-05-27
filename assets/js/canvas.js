@@ -21,21 +21,27 @@ canvas.width = CANVAS_SIZE;
 const SCALE = 20;
 const ROW = CANVAS_SIZE / SCALE; 
 const COLUM = CANVAS_SIZE / SCALE;
+const ROW_HALF = ROW/2;
+const COLUM_HALF = COLUM/2;
 
 //For update
 var runTime;
 
 //Snake Variables
-const SNAKE_SPAWN_SIZE = 3;
+const SNAKE_SPAWN_SIZE = 6;
 const SNAKE_SPAWN_POINT_X = ROW * SCALE/2;
 const SNAKE_SPAWN_POINT_Y = COLUM * SCALE/2;
+var snake_size = 0;
 
 
 //Interactive Elements
-var player;
+var playerSnake;
 var playerSnake = [];
 var total_size = 0;
 var food;
+
+//Score element
+var scoreElement;
 
 
 function background(){
@@ -43,12 +49,18 @@ function background(){
     ctx.fillRect(0,0, canvas.width, canvas.height);
 }
 
+function collision(){
+    playerSnake[0].collision_wall();
+    
+
+    for(i = 1; i < playerSnake.length; i++){
+        if(playerSnake[0].x ===playerSnake[i].x&&playerSnake[0].y ===playerSnake[i].y){
+            console.log("dead");
+        }
+    }
+}
+
 function snake_animate(){
-
-    player.draw();
-    player.update();
-
-
     for(i=0; i < playerSnake.length; i++){
         playerSnake[i].draw();
         playerSnake[i].update();
@@ -64,19 +76,34 @@ function food_animate(){
 function runTime(){
     // console.log("Running");
     background();
+    collision();
+    moveBody();
+
+
     snake_animate();
     food_animate();
 
     checkSnakeFood();
-    //moveBody();
+    displayText();
+
+    
+}
+
+function displayText(){
+    ctx.strokeStyle = 'black';
+    ctx.strokeText("1", SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y);
 }
 
 function checkSnakeFood(){
-
-    if(player.eat(food)){
+    if(playerSnake[0].eat(food)){
         pickLocationFood();
         growSnake();
     }
+}
+
+function growSnake(){
+    console.log(snake_size);
+    playerSnake.push(new SnakeBody(playerSnake[snake_size-1].x, playerSnake[snake_size-1].y, SNAKE_BOARDER_COLOUR));
 }
 
 
@@ -92,43 +119,66 @@ function pickLocationFood(){
 
 function createSnake(){
 
-    player = new Snake(SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR);
+    playerSnake.push(new Snake(SNAKE_SPAWN_POINT_X, SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR));
+    snake_size++;
 
-    // for(i = 0; i < SNAKE_SPAWN_SIZE; i++){
-    //     playerSnake.push(new SnakeBody(SNAKE_SPAWN_POINT_X - (ROW*i), SNAKE_SPAWN_POINT_Y, SNAKE_COLOUR));
-    // }
+    for(i = 1; i <= SNAKE_SPAWN_SIZE; i++){
+        playerSnake.push(new SnakeBody(SNAKE_SPAWN_POINT_X - (ROW*i), SNAKE_SPAWN_POINT_Y, SNAKE_BOARDER_COLOUR));
+        snake_size++;
+    }
+
+    // console.log(playerSnake);
     
 }
 
 function moveBody(){
     //move each body up on spot in the array
     //Couldn't quite get it
-    console.log("Moving Body");
+    // console.log("Moving Body");
 
 
-    playerSnake[0].x = player.x;
-    playerSnake[0].y = player.y;
 
-
-    for(i = 0; i < playerSnake.length-1; i++){
-        playerSnake[i] = playerSnake[i+1];
-    }
-    playerSnake[playerSnake.length-1] = new SnakeBody(player.x, player.y);
-
-  
-    console.log(playerSnake.length)
+    //This took too long to figure out :D 
+    //This loops "history" of the body to the next one
     for(i = playerSnake.length-1; i > 0; i--){
-        playerSnake[i].x = playerSnake[i+1].x;
-        playerSnake[i].y = playerSnake[i+1].y;
-        console.log("lol")
+        playerSnake[i].x = playerSnake[i-1].x;
+        playerSnake[i].y = playerSnake[i-1].y; 
     }
+
+
+
+    
+
+
+
+    
+    
+
+
+
+
+
+
+
+    
+
+    
+
+    //playerSnake[playerSnake.length-1] = new SnakeBody(player.x, player.y, SNAKE_BOARDER_COLOUR);
 
     // for(i = playerSnake.length-1; i > 0; i--){
     //     playerSnake[i].x = playerSnake[i+1].x;
     //     playerSnake[i].y = playerSnake[i+1].y;
+    //     console.log("lol")
     // }
 
-    console.log("End of Body");
+    // for(i = playerSnake.length-1; i > 0; i--){
+    //     playerSnake[i].x = playerSnake[i+1].x;
+    //     playerSnake[i].y = playerSnake[i+1].y;
+    //     console.log("loop: " + i);
+    // }
+
+    // console.log("End of Body");
 }
 
 

@@ -19,7 +19,22 @@ class Snake{
         // console.log("updating");
         this.x += this.xSpeed;
         this.y += this.ySpeed;
-        console.log("X: " + this.x + "  Y: " + this.y);
+        // console.log("X: " + this.x + "  Y: " + this.y);
+    }
+
+    collision_wall(){
+        if(this.x >= CANVAS_SIZE){
+            this.x = 0;
+        }
+        else if(this.x < 0){
+            this.x = CANVAS_SIZE;
+        }
+        else if(this.y >= CANVAS_SIZE){
+            this.y = 0;
+        }
+        else if(this.y < 0){
+            this.y = CANVAS_SIZE;
+        }
     }
 
     direction(x_value, y_value){
@@ -29,8 +44,8 @@ class Snake{
 
     eat(cFood){
         //Pythahorean Theorem
-        let xDistance = cFood.x - player.x;
-        let yDistance = cFood.y - player.y;
+        let xDistance = cFood.x - this.x;
+        let yDistance = cFood.y - this.y;
         var distance = Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2))
 
         if(distance < 1){
@@ -42,18 +57,26 @@ class Snake{
     }
 }
 
-
+var id = 1;
 class SnakeBody{
+     
 
     constructor(xLocation, yLocation, color){
         this.x = xLocation;
         this.y = yLocation;
         this.color = color;
+        this.bodyID = id;
+        id+=1;
+
+
     }
 
     draw(){
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, ROW , COLUM );
+        ctx.strokeStyle = 'white';
+        ctx.strokeText(this.bodyID.toString(), this.x+(ROW_HALF), this.y+(COLUM_HALF), 30);
+    
     }
 
     update(){
